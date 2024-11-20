@@ -22,7 +22,7 @@ def generate_launch_description():
     ]
 
     gazebo_models_package_dir = os.path.join(get_package_share_directory('ros_industrial_support'), 'urdf')
-    bin_path = os.path.join(gazebo_models_package_dir, 'bin', 'bin.gazebo.xacro')
+    bin_path = os.path.join(gazebo_models_package_dir, 'bin', 'bin.xacro')
     bin_desc = xacro.process_file(bin_path)
     bin_desc_xml = bin_desc.toxml()
 
@@ -36,9 +36,9 @@ def generate_launch_description():
         name=[LaunchConfiguration('workshop'), 'spawner'],
         output='screen',
         arguments=[
-            '-entity', "tmp",
-            '-topic', "/robot_description",
-            '-spawn_service_timeout', '10.0',
+            '-entity', "tmp3",
+            '-file', bin_path,
+            '-timeout', '10.0',
             '-x', '-4',
             '-y', '-2',
         ],

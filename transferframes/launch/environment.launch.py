@@ -26,17 +26,16 @@ def generate_launch_description():
     #casus_moveit_config_launch_dir = os.path.join(get_package_share_directory('casus_moveit_config'), 'launch')
     #ros_industrial_gazebo_launch_dir = os.path.join(get_package_share_directory('ros_industrial_gazebo'), 'launch')
 
+    world_path =  os.path.join(get_package_share_directory('transferframes'), 'worlds', 'casus.world')
+    print(world_path)
+
     # Include other launch files
     gazebo_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(os.path.join(gazebo_launch_dir, 'gazebo.launch.py')),
         launch_arguments={
-            'world_name': os.path.join(get_package_share_directory('transferframes'), 'worlds', 'casus.world'),
-            'debug': LaunchConfiguration('debug'),
-            'gui': LaunchConfiguration('gui'),
-            'paused': LaunchConfiguration('paused'),
-            'use_sim_time': LaunchConfiguration('use_sim_time'),
-            'headless': LaunchConfiguration('headless'),
-            'extra_gazebo_args': LaunchConfiguration('extra_gazebo_args'),
+            'world': world_path,
+            'server_required': 'true',
+            'gui_required': 'true',
         }.items(),
     )
     package_dir = get_package_share_directory('transferframes')
@@ -156,7 +155,7 @@ def generate_launch_description():
             gazebo_launch,
             urdf_description_node,
             #move_group,
-            spawn_world_objects,
+            #spawn_world_objects,
             #spawn_robots,
             #unpause_gazebo,
             #spawn_parts,
